@@ -91,6 +91,12 @@ const routes = [
     name: 'user',
     // lazy-loaded
     component: () => import('../views/BoardUser.vue')
+  },
+  {
+    path: '/nova',
+    name: 'nova',
+    // lazy-loaded
+    component: () => import('../views/nova.vue')
   }
 
 
