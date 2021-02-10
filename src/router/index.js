@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login2 from '../views/Login2.vue'
+import Login from '../views/Login.vue'
 import NewAdvertisement from "../components/NewAdvertisement";
 import AllAdvertisements from "../components/AllAdvertisements";
 import SingleAdvertisement from "../components/SingleAdvertisement";
@@ -41,6 +42,11 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
+    component: Login
+  },
+  {
+    path: '/login2',
+    name: 'Login2',
     component: Login2
   },
   {

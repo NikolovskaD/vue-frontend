@@ -27,26 +27,42 @@
                         </div>
                         <h4 class="text-center mlt-4">Enter your email for registration</h4>
                         <v-form>
-                          <v-text-field
-                                  label="Email"
-                                  name="Email"
-                                  prepend-icon="email"
+                          <v-text-field for="username"
+                                  label="Username"
+                                  name="username"
+                                  prepend-icon="person"
                                   type="text"
                                   color="teal accent-3"
-                          />
+                                  v-model = "user.username"
+                                  v-validate="'required'"
+                                  />
+                                <!-- class="form-control"-->
+                          <div
+                                  v-if="errors.has('username')"
+                                  class="alert alert-danger"
+                                  role="alert"
+                          >Username is required!</div>
                           <v-text-field
                                   id="password"
                                   label="Password"
-                                  name="Password"
+                                  name="password"
                                   prepend-icon="lock"
                                   type="password"
                                   color="teal accent-3"
+                                  v-model="user.password"
+                                  v-validate="'required'"
                           />
+                          <div
+                                  v-if="errors.has('password')"
+                                  class="alert alert-danger"
+                                  role="alert"
+                          >Password is required!</div>
                         </v-form>
                         <h3 class="text-center mt-3">Forgot your password?</h3>
                       </v-card-text>
                       <div class="text-center mt-3">
-                        <v-btn style="margin: 5px" rounded color="teal accent-3" dark>Sign in</v-btn>
+                        <v-btn style="margin: 5px" rounded color="teal accent-3" dark> Sign in </v-btn>
+                        <div v-if="message" class="alert alert-danger" role="alert">{{message}}</div>
                       </div>
                     </v-col>
                     <v-col cols="12" md="4" class="teal accent-3">
@@ -88,31 +104,55 @@
                         <h4 class="text-center mlt-4">Enter your email for registration</h4>
                         <v-form>
                           <v-text-field
-                                  label="Name"
-                                  name="Name"
+                                  label="Username"
+                                  name="username"
                                   prepend-icon="person"
                                   type="text"
                                   color="teal accent-3"
+                                  v-model="user.username"
+                                  v-validate="'required|min:3|max:20'"
                           />
+                          <div
+                                  v-if="submitted && errors.has('username')"
+                                  class="alert-danger"
+                          >{{errors.first('username')}}</div>
                           <v-text-field
                                   label="Email"
-                                  name="Email"
+                                  name="email"
                                   prepend-icon="email"
                                   type="text"
                                   color="teal accent-3"
+                                  v-model="user.email"
+                                  v-validate="'required|email|max:50'"
                           />
+                          <div
+                                  v-if="submitted && errors.has('email')"
+                                  class="alert-danger"
+                          >{{errors.first('email')}}</div>
                           <v-text-field
                                   label="Password"
-                                  name="Password"
+                                  name="password"
                                   prepend-icon="lock"
                                   type="password"
                                   color="teal accent-3"
+                                  v-model="user.password"
+                                  v-validate="'required|min:6|max:40'"
                           />
+                          <div
+                                  v-if="submitted && errors.has('password')"
+                                  class="alert-danger"
+                          >{{errors.first('password')}}</div>
                         </v-form>
                       </v-card-text>
                       <div class="text-center mt-n5">
                         <v-btn rounded color="teal accent-3" dark>Sign up</v-btn>
+                        <div
+                                v-if="message"
+                                class="alert"
+                                :class="successful ? 'alert-success' : 'alert-danger'"
+                        >{{message}}</div>
                       </div>
+
                     </v-col>
                   </v-row>
                 </v-window-item>
@@ -126,12 +166,81 @@
 </template>
 
 <script>
+  import User from '../models/user';
+
   export default {
+    name: 'Login',
     data:() => ({
-      step: 1
+      step: 1,
+      user: new User('', '',''),
+      loading: false,
+      message: '',
+      submitted: false,
+      successful: false,
     }),
     props: {
       source: String
+    },
+    computed: {
+      loggedIn() {
+        return this.$store.state.auth.status.loggedIn;
+      }
+    },
+    created() {
+      if (this.loggedIn) {
+        this.$router.push('/profile');
+      }
+    },
+    mounted() {
+      if (this.loggedIn) {
+        this.$router.push('/profile');
+      }
+    },
+    methods: {
+      handleLogin() {
+        this.loading = true;
+        this.$validator.validateAll().then(isValid => {
+          if (!isValid) {
+            this.loading = false;
+            return;
+          }
+          if (this.user.username && this.user.password) {
+            this.$store.dispatch('auth/login', this.user).then(
+                    () => {
+                      this.$router.push('/profile');
+                    },
+                    error => {
+                      this.loading = false;
+                      this.message =
+                              (error.response && error.response.data) ||
+                              error.message ||
+                              error.toString();
+                    }
+            );
+          }
+        });
+      },
+      handleRegister() {
+        this.message = '';
+        this.submitted = true;
+        this.$validator.validate().then(isValid => {
+          if (isValid) {
+            this.$store.dispatch('auth/register', this.user).then(
+                    data => {
+                      this.message = data.message;
+                      this.successful = true;
+                    },
+                    error => {
+                      this.message =
+                              (error.response && error.response.data) ||
+                              error.message ||
+                              error.toString();
+                      this.successful = false;
+                    }
+            );
+          }
+        });
+      }
     }
   }
 </script>

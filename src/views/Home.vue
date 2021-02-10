@@ -1,8 +1,8 @@
 <template>
     <div>
-        <header class="jumbotron">
+       <!-- <header class="jumbotron">
             <h3>{{content}}</h3>
-        </header>
+        </header>-->
         <h3>Изберете град:</h3>
         <MapMK/>
     </div>

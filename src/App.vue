@@ -35,7 +35,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/login" class="nav-link">
+            <router-link to="/login2" class="nav-link">
               <font-awesome-icon icon="sign-in-alt" />Login
             </router-link>
           </li>
