@@ -7,26 +7,34 @@
             <label>Опис на огласот:</label>
             <textarea v-model.lazy.trim="advertisement.description"/>
             <div id="checkboxes">
-                <p>Категории:</p>
-                <input type="checkbox" value="Ново" v-model="advertisement.categories" />
+                <p>Тип на оглас:</p>
+                <input type="checkbox" value="Ново" v-model="advertisement.types" />
                 <label>Ново</label>
-                <input type="checkbox" value="Половно" v-model="advertisement.categories" />
+                <input type="checkbox" value="Половно" v-model="advertisement.types" />
                 <label>Половно</label>
-                <input type="checkbox" value="Купувам" v-model="advertisement.categories" />
+                <input type="checkbox" value="Купувам" v-model="advertisement.types" />
                 <label>Купувам</label>
-                <input type="checkbox" value="Продавам" v-model="advertisement.categories" />
+                <input type="checkbox" value="Продавам" v-model="advertisement.types" />
                 <label>Продавам</label>
-                <input type="checkbox" value="Замена" v-model="advertisement.categories" />
+                <input type="checkbox" value="Замена" v-model="advertisement.types" />
                 <label>Замена</label>
             </div>
+            <label>Категорија:</label>
+            <select v-model="advertisement.category ">
+                <option v-for="category in categories" :key="category">{{ category }}</option>
+            </select>
             <label>Цена:</label>
             <input type="text" v-model.lazy="advertisement.money.amount" required />
+            <label>Количина:</label>
+            <input type="text" v-model.lazy="advertisement.quantity" required />
             <label>Валута:</label>
             <select v-model="advertisement.money.currency ">
                 <option v-for="currency in currencies" :key="currency">{{ currency }}</option>
             </select>
+
+            <label>Продукт</label><input type="checkbox" value="Продукт" v-model="advertisement.isProduct" />
             <label>Линк до сликата:</label>
-            <textarea v-model.lazy.trim="advertisement.imgUrl"/>
+            <input type="text" v-model.lazy.trim="advertisement.imgUrl" />
             <hr />
             <button v-on:click.prevent="post">Креирај нов оглас</button>
         </form>
@@ -38,11 +46,14 @@
             <p>Наслов на огласот: {{ advertisement.title }}</p>
             <p>Опис на огласот:</p>
             <p style="white-space: pre">{{ advertisement.description }}</p>
-            <p>Категории:</p>
+            <p>Тип на оглас:</p>
             <ul>
-                <li v-for="category in advertisement.categories" :key="category">{{ category }}</li>
+                <li v-for="category in advertisement.types" :key="category">{{ category }}</li>
             </ul>
             <p>Цена: {{advertisement.money.amount}} {{ advertisement.money.currency }}</p>
+            <p>Категорија: {{advertisement.category}} </p>
+            <p>количина: {{advertisement.quantity}} </p>
+            <p>Дали е продукт? {{advertisement.isProduct}}</p>
         </div>
     </div>
 </template>
@@ -55,30 +66,42 @@
                 advertisement: {
                     title: '',
                     description: '',
-                    categories: [],
+                    types: [],
                     money: {
                         currency: '',
                         amount: 0
                     },
-                    imgUrl: ''
+                    imgUrl: '',
+                    category: [],
+                    isProduct: false,
+                    quantity: 1
                 },
                 currencies: ['MKD', 'EUR', 'RSD', 'USD'],
-                submitted: false
+                submitted: false,
+                categories: []
             }
         },
         methods: {
             post: function(){
-                this.$http.post('http://localhost:8081/ads', {
+                this.$http.post('http://localhost:8082/ads', {
                     title: this.advertisement.title,
-                    imgUrl: this.advertisement.imgUrl,
                     description: this.advertisement.description,
-                    money : this.advertisement.money
-                    //userId: 1
+                    currency: this.advertisement.money.currency,
+                    price: this.advertisement.money.amount,
+                    quantity: this.advertisement.quantity,
+                    isProduct: this.advertisement.isProduct,
+                    imgUrl: this.advertisement.imgUrl,
+                    categories: this.advertisement.category
                 }).then(function(data){
                     console.log(data);
                     this.submitted = true;
                 });
             }
+        },
+        created() {
+            this.$http.get('http://localhost:8082/categories').then(function (data) {
+                this.categories = data.body;
+            });
         }
     }
 </script>

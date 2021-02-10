@@ -79,37 +79,37 @@ export default {
   data: () => ({
     navLinks: [
       {
-        text: 'Contact',
+        text: 'Контакт',
         path: '/contact',
         icon: 'ion-ios-megaphone'
       },
       {
-        text: 'About',
+        text: 'За нас',
         path: '/about',
         icon: 'ion-ios-business'
       },
       {
-        text: 'Blog',
-        path: '/blog',
-        icon: 'ion-ios-bonfire'
-      },
-      {
-        text: 'Portfolio',
+        text: 'Портфолио',
         path: '/portfolio',
         icon: 'ion-ios-briefcase'
       },
       {
-        text: 'New Ad',
+        text: 'Нов оглас',
         path: '/new-ad',
         icon: 'ion-ios-add-circle'
       },
       {
-        text: 'All Ads',
+        text: 'Огласи',
         path: '/all-ads',
         icon: 'ion-ios-paper'
       },
       {
-        text: 'Login',
+        text: 'Продукти',
+        path: '/products',
+        icon: 'ion-ios-bonfire'
+      },
+      {
+        text: 'Најави се',
         path: '/login',
         icon: 'ion-ios-log-in'
       }

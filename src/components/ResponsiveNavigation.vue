@@ -19,6 +19,22 @@
                 </router-link>
             </li>
         </ul>
+        <!--<div class="nav__cart">
+            <button @click="showCart = !showCart">
+                <i class="fas fa-shopping-cart"/>
+            </button>
+            <span class="total-quantity">{{ totalQuantity }}</span>
+            <div v-if="showCart" class="cart-dropdown">
+                <ul class="cart-dropdown__list">
+                    <li
+                            v-for="product in cart"
+                            :key="product.id"
+                    ><img src="../../../../AppData/Local/Temp/mkd_map.25e00288.png"/>
+                        {{ product.name }} ({{ product.quantity }})
+                    </li>
+                </ul>
+            </div>
+        </div>-->
     </nav>
 </template>
 
@@ -29,8 +45,40 @@
             toggleNav () {
                 const nav = this.$refs.nav.classList
                 nav.contains('active') ? nav.remove('active') : nav.add('active')
+            },
+            updateCart(product, updateType) {
+                for (let i = 0; i < this.products.length; i++) {
+                    if (this.products[i].id === product.id) {
+                        if (updateType === 'subtract') {
+                            if (this.products[i].quantity !== 0) {
+                                this.products[i].quantity--;
+                            }
+                        } else {
+                            this.products[i].quantity++;
+                        }
+
+                        break;
+                    }
+                }
+            }
+        },
+        computed: {
+            cart() {
+                return this.products.filter(product => product.quantity > 0);
+            },
+            totalQuantity() {
+                return this.products.reduce(
+                    (total, product) => total + product.quantity,
+                    0
+                );
             }
         }
+        /*created() {
+            //this.$http.get('http://jsonplaceholder.typicode.com/posts').then(function (data) {
+            this.$http.get('http://localhost:8082/ads/produstcs').then(function (data) {
+                this.products = data.body;
+            });
+        }*/
     }
 </script>
 

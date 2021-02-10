@@ -12,7 +12,7 @@
                     <v-col cols="12" md="8" @submit.prevent="handleLogin">
                       <v-card-text class="mt-12">
                         <h1 class="text-center display-2 teal--text text--accent-3">
-                          Sign in
+                          Најави се
                         </h1>
                         <div class="text-center" mt-4>
                           <v-btn class="mx-2" fab color="black" outlined>
@@ -25,10 +25,10 @@
                             <v-icon>fab fa-linkedin-in</v-icon>
                           </v-btn>
                         </div>
-                        <h4 class="text-center mlt-4">Enter your email for registration</h4>
+                        <h4 class="text-center mlt-4">Внеси ги потребните податоци за влез</h4>
                         <v-form>
                           <v-text-field
-                                  label="Username"
+                                  label="Корисничко име"
                                   name="username"
                                   prepend-icon="person"
                                   type="text"
@@ -45,7 +45,7 @@
                           >Username is required!</div>
                           <v-text-field
                                   id="password"
-                                  label="Password"
+                                  label="Лозинка"
                                   name="password"
                                   prepend-icon="lock"
                                   type="password"
@@ -59,20 +59,20 @@
                                   role="alert"
                           >Password is required!</div>
                         </v-form>
-                        <h5 class="text-center mt-3">Forgot your password?</h5>
+                        <h5 class="text-center mt-3">Ја заборави лозинката?</h5>
                       </v-card-text>
                       <div class="text-center mt-3">
-                        <v-btn style="margin: 5px" rounded color="teal accent-3" dark @click="handleLogin"> Sign in </v-btn>
+                        <v-btn style="margin: 5px" rounded color="teal accent-3" dark @click="handleLogin"> Најави се </v-btn>
                         <div v-if="message" class="alert alert-danger" role="alert">{{message}}</div>
                       </div>
                     </v-col>
                     <v-col cols="12" md="4" class="teal accent-3" >
                       <v-card-text class="white--text mt-12">
-                        <h1 class="text-center display-1">Hello friend!</h1>
-                        <h5 class="text-center">Enter your personal details and star your journey with us</h5>
+                        <h1 class="text-center display-1">Здраво пријателче!</h1>
+                        <h5 class="text-center">Стани дел на оваа приказна брзо и лесно</h5>
                       </v-card-text>
                       <div class="text-center">
-                        <v-btn rounded outlined="" dark @click="step++">Sign up</v-btn>
+                        <v-btn rounded outlined="" dark @click="step++">Регистрирај се</v-btn>
                       </div>
                     </v-col>
                   </v-row>
@@ -81,16 +81,16 @@
                   <v-row class="fill-height">
                     <v-col cols="12" md="4" class="teal accent-3">
                       <v-card-text class="white--text mt-12">
-                        <h1 class="text-center display-1">Welcome back!</h1>
-                        <h5 class="text-center">To stay connected with us, please sign in to your account</h5>
+                        <h1 class="text-center display-1">Добредојде назад!</h1>
+                        <h5 class="text-center">Да останеш во тек со дешавањата, најави се</h5>
                       </v-card-text>
                       <div class="text-center">
-                        <v-btn rounded outlined dark @click="step--">Sign in</v-btn>
+                        <v-btn rounded outlined dark @click="step--">Најави се</v-btn>
                       </div>
                     </v-col>
                     <v-col cols="12" md="8" @submit.prevent="handleRegister">
                       <v-card-text class="mt-12">
-                        <h1 class="text-center display-2 teal--text text--accent-3">Create an account</h1>
+                        <h1 class="text-center display-2 teal--text text--accent-3">Креирај налог</h1>
                         <div class="text-center mt-4">
                           <v-btn class="mx-2" fab color="black" outlined>
                             <v-icon>fab fa-facebook-f</v-icon>
@@ -102,10 +102,10 @@
                             <v-icon>fab fa-linkedin-in</v-icon>
                           </v-btn>
                         </div>
-                        <h4 class="text-center mlt-4">Enter your email for registration</h4>
+                        <h4 class="text-center mlt-4">Внеси ги потребните податоци за регистрација</h4>
                         <v-form  v-if="!successful">
                           <v-text-field
-                                  label="Username"
+                                  label="Корисничко име"
                                   name="username"
                                   prepend-icon="person"
                                   type="text"
@@ -118,7 +118,7 @@
                                   class="alert-danger"
                           >{{errors.first('username')}}</div>
                           <v-text-field
-                                  label="Email"
+                                  label="емаил"
                                   name="email"
                                   prepend-icon="email"
                                   type="text"
@@ -132,7 +132,7 @@
                           >{{errors.first('email')}}</div>
                           <v-text-field
                                   id="password"
-                                  label="Password"
+                                  label="Лозинка"
                                   name="password"
                                   prepend-icon="lock"
                                   type="password"
@@ -147,7 +147,7 @@
                         </v-form>
                       </v-card-text>
                       <div class="text-center mt-n5">
-                        <v-btn rounded color="teal accent-3" dark @click="handleRegister">Sign up</v-btn>
+                        <v-btn rounded color="teal accent-3" dark @click="handleRegister">Регистрирај се</v-btn>
                         <div
                                 v-if="message"
                                 class="alert"

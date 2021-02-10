@@ -22,7 +22,7 @@
                         <v-img
                                 class="white--text align-end"
                                 height="200px"
-                                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                                :src=advertisement.imgUrl
                         >
                             <v-card-title>{{ advertisement.title }}</v-card-title>
                         </v-img>
@@ -38,10 +38,12 @@
                                  Share
                              </v-btn>-->
 
-                            <router-link v-bind:to="'/ad/' + advertisement.id">
+                            <router-link v-bind:to="'/ad/' + advertisement.id.id">
                                 <v-btn color="orange" text>
-                                    Explore
+                                    Детали
                                 </v-btn>
+                                <!-- ne ja cita kategorijata ispod -->
+                                <p>{{advertisement.categories.name}} - {{ advertisement.money.amount }} {{advertisement.money.currency}}</p>
                             </router-link>
                         </v-card-actions>
                     </div>
@@ -65,14 +67,13 @@
         computed: {
             filteredAds: function () {
                 return this.advertisements.filter((advertisement) => {
-                    return advertisement.title.match(this.search);
+                    return advertisement.title.toLowerCase().match(this.search.toLowerCase());
                 });
             }
         },
         created() {
-            //this.$http.get('http://jsonplaceholder.typicode.com/posts').then(function (data) {
-            this.$http.get('http://localhost:8081/ads').then(function (data) {
-                this.advertisements = data.body.slice(0, 10);
+            this.$http.get('http://localhost:8082/ads').then(function (data) {
+                this.advertisements = data.body;
             });
         }
     }

@@ -29,17 +29,17 @@
             </v-card-actions>
         </v-card>
 
-    <!--<div id="single-ad">
-        <h1>{{ advertisement.title }}</h1>
-        <article>{{ advertisement.body }}</article>
-    </div>-->
+        <!--<div id="single-ad">
+            <h1>{{ advertisement.title }}</h1>
+            <article>{{ advertisement.body }}</article>
+        </div>-->
     </div>
 </template>
 
 <script>
     export default {
         name: "SingleAdvertisement",
-        data () {
+        data() {
             return {
                 id: this.$route.params.id,
                 advertisement: {},
@@ -50,7 +50,8 @@
             }
         },
         created() {
-            this.$http.get('http://jsonplaceholder.typicode.com/posts/' + this.id).then(function(data){
+            //this.$http.get('http://jsonplaceholder.typicode.com/posts/' + this.id).then(function(data){
+            this.$http.get('http://localhost:8082/ads/' + this.id).then(function (data) {
                 // console.log(data);
                 this.advertisement = data.body;
                 this.description = data.description;
@@ -64,7 +65,8 @@
     #card {
         margin: 30px;
     }
-    #single-ad{
+
+    #single-ad {
         max-width: 960px;
         margin: 0 auto;
     }

@@ -18,7 +18,7 @@
                         <v-img
                                 class="white--text align-end"
                                 height="200px"
-                                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                                :src=advertisement.imgUrl
                         >
                             <v-card-title>{{ advertisement.title }}</v-card-title>
                         </v-img>
@@ -26,15 +26,17 @@
                         <v-card-subtitle class="pb-0">{{idx}}</v-card-subtitle>
 
                         <v-card-text class="text--primary">
-                            <div>{{ advertisement.body }}</div>
+                            <div>{{ advertisement.description }}</div>
                         </v-card-text>
 
                         <v-card-actions>
 
-                            <router-link v-bind:to="'/ad/' + advertisement.id">
+                            <router-link v-bind:to="'/ad/' + advertisement.id.id">
                                 <v-btn color="orange" text>
-                                    Explore
+                                    Детали
                                 </v-btn>
+                                <!-- ne ja cita kategorijata ispod -->
+                                <p>{{advertisement.categories.name}} - {{ advertisement.money.amount }} {{advertisement.money.currency}}</p>
                             </router-link>
                         </v-card-actions>
                     </div>
@@ -57,18 +59,14 @@
         methods: {},
         computed: {
             filteredAds: function () {
-                /*return this.advertisements.filter((advertisement) => {
-                    return advertisement.title.match(this.search);
-                });*/
                 return this.advertisements.filter((advertisement) => {
-                    return advertisement.isProduct.match('true');
+                    return advertisement.title.toLowerCase().match(this.search.toLowerCase());
                 });
             }
         },
         created() {
-            //this.$http.get('http://jsonplaceholder.typicode.com/posts').then(function (data) {
-            this.$http.get('http://localhost:8081/ads').then(function (data) {
-                this.advertisements = data.body.slice(0, 10);
+            this.$http.get('http://localhost:8082/ads/products').then(function (data) {
+                this.advertisements = data.body;
             });
         }
     }

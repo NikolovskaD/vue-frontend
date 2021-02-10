@@ -7,6 +7,7 @@ import AllAdvertisements from "../components/AllAdvertisements";
 import SingleAdvertisement from "../components/SingleAdvertisement";
 import Profile from "../views/Profile";
 import Register2 from "../views/Register2";
+import AllProducts from "../components/AllProducts";
 
 Vue.use(VueRouter);
 
@@ -35,9 +36,9 @@ const routes = [
     component: () => import( '../views/About.vue')
   },
   {
-    path: '/blog',
-    name: 'Blog',
-    component: () => import( '../views/About.vue')
+    path: '/products',
+    name: 'Products',
+    component: AllProducts
   },
   {
     path: '/login',
@@ -97,7 +98,12 @@ const routes = [
     name: 'nova',
     // lazy-loaded
     component: () => import('../views/nova.vue')
-  }
+  } ,
+  {
+    path: '/all-products',
+    name: 'AllProducts',
+    component: AllProducts
+  },
 
 
 ];
