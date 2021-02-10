@@ -1,44 +1,48 @@
 <template>
     <div id="add-advertisement">
-        <h2>Add a New Advertisement</h2>
+        <h2>Додади нов оглас</h2>
         <form v-if="!submitted">
-            <label>Ad Title:</label>
+            <label>Наслов на огласот:</label>
             <input type="text" v-model.lazy="advertisement.title" required />
-            <label>Ad Description:</label>
-            <textarea v-model.lazy.trim="advertisement.content"></textarea>
+            <label>Опис на огласот:</label>
+            <textarea v-model.lazy.trim="advertisement.description"/>
             <div id="checkboxes">
-                <p>Ad Categories:</p>
-                <input type="checkbox" value="new" v-model="advertisement.categories" />
-                <label>New   </label>
-                <input type="checkbox" value="used" v-model="advertisement.categories" />
-                <label>Used</label>
-                <input type="checkbox" value="buy" v-model="advertisement.categories" />
-                <label>Buy</label>
-                <input type="checkbox" value="sell" v-model="advertisement.categories" />
-                <label>Sell</label>
-                <input type="checkbox" value="substitution" v-model="advertisement.categories" />
-                <label>Substitution</label>
+                <p>Категории:</p>
+                <input type="checkbox" value="Ново" v-model="advertisement.categories" />
+                <label>Ново</label>
+                <input type="checkbox" value="Половно" v-model="advertisement.categories" />
+                <label>Половно</label>
+                <input type="checkbox" value="Купувам" v-model="advertisement.categories" />
+                <label>Купувам</label>
+                <input type="checkbox" value="Продавам" v-model="advertisement.categories" />
+                <label>Продавам</label>
+                <input type="checkbox" value="Замена" v-model="advertisement.categories" />
+                <label>Замена</label>
             </div>
-            <label>Author:</label>
-            <select v-model="advertisement.author">
-                <option v-for="author in authors" :key="author">{{ author }}</option>
+            <label>Цена:</label>
+            <input type="text" v-model.lazy="advertisement.money.amount" required />
+            <label>Валута:</label>
+            <select v-model="advertisement.money.currency ">
+                <option v-for="currency in currencies" :key="currency">{{ currency }}</option>
             </select>
+            <label>Линк до сликата:</label>
+            <textarea v-model.lazy.trim="advertisement.imgUrl"/>
             <hr />
-            <button v-on:click.prevent="post">Add Advertisement</button>
+            <button v-on:click.prevent="post">Креирај нов оглас</button>
         </form>
         <div v-if="submitted">
-            <h3>Thanks for adding your ad</h3>
+            <h3>Ви благодариме!</h3>
         </div>
         <div id="preview">
             <h3>Preview Ad</h3>
-            <p>Ad title: {{ advertisement.title }}</p>
-            <p>Ad description:</p>
-            <p style="white-space: pre">{{ advertisement.content }}</p>
-            <p>Ad Categories:</p>
+            <p>Наслов на огласот: {{ advertisement.title }}</p>
+            <p>Опис на огласот:</p>
+            <p style="white-space: pre">{{ advertisement.description }}</p>
+            <p>Категории:</p>
             <ul>
                 <li v-for="category in advertisement.categories" :key="category">{{ category }}</li>
             </ul>
-            <p>Author: {{ advertisement.author }}</p>
+            <p>Цена: {{advertisement.money.amount}} {{ advertisement.money.currency }}</p>
         </div>
     </div>
 </template>
@@ -50,20 +54,26 @@
             return {
                 advertisement: {
                     title: '',
-                    content: '',
+                    description: '',
                     categories: [],
-                    author: ''
+                    money: {
+                        currency: '',
+                        amount: 0
+                    },
+                    imgUrl: ''
                 },
-                authors: ['The Net Ninja', 'The Angular Avenger', 'The Vue Vindicator'],
+                currencies: ['MKD', 'EUR', 'RSD', 'USD'],
                 submitted: false
             }
         },
         methods: {
             post: function(){
-                this.$http.post('http://jsonplaceholder.typicode.com/posts', {
+                this.$http.post('http://localhost:8081/ads', {
                     title: this.advertisement.title,
-                    body: this.advertisement.content,
-                    userId: 1
+                    imgUrl: this.advertisement.imgUrl,
+                    description: this.advertisement.description,
+                    money : this.advertisement.money
+                    //userId: 1
                 }).then(function(data){
                     console.log(data);
                     this.submitted = true;
@@ -76,10 +86,12 @@
 <style scoped>
     #add-advertisement *{
         box-sizing: border-box;
+        text-align: left;
+        padding: 10px;
     }
     #add-advertisement{
         margin: 20px auto;
-        max-width: 500px;
+        max-width: 600px;
     }
     label{
         display: block;
@@ -89,6 +101,12 @@
         display: block;
         width: 100%;
         padding: 8px;
+        border: 1px solid #777;
+    }
+    select {
+        padding: 8px;
+        border: 1px solid #777;
+        display: inline-block;
     }
     #preview{
         padding: 10px 20px;
@@ -100,7 +118,7 @@
     }
     #checkboxes input{
         display: inline-block;
-        margin-right: 10px;
+        margin-left: 10px;
     }
     #checkboxes label{
         display: inline-block;

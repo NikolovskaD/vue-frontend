@@ -1,6 +1,6 @@
 <template>
     <div id="show-ads">
-        <h1>Сите огласи</h1>
+        <h1>Сите продукти</h1>
         <input type="text" v-model="search" placeholder="пребарувај"/>
         <v-row>
             <v-col
@@ -13,10 +13,6 @@
                         class="mx-auto"
                         max-width="400" >
                     <div v-for="(advertisement,idx) in filteredAds" class="single-ad" :key="idx">
-                        <!-- <router-link v-bind:to="'/ad/' + advertisement.id">
-                             <h2>{{ advertisement.title }}</h2>
-                         </router-link>
-                         <article>{{ advertisement.body }}</article>-->
 
 
                         <v-img
@@ -30,13 +26,10 @@
                         <v-card-subtitle class="pb-0">{{idx}}</v-card-subtitle>
 
                         <v-card-text class="text--primary">
-                            <div>{{ advertisement.description }}</div>
+                            <div>{{ advertisement.body }}</div>
                         </v-card-text>
 
                         <v-card-actions>
-                            <!-- <v-btn color="orange" text>
-                                 Share
-                             </v-btn>-->
 
                             <router-link v-bind:to="'/ad/' + advertisement.id">
                                 <v-btn color="orange" text>
@@ -54,7 +47,7 @@
 
 <script>
     export default {
-        name: "AllAdvertisements",
+        name: "AllProducts",
         data() {
             return {
                 advertisements: [],
@@ -64,8 +57,11 @@
         methods: {},
         computed: {
             filteredAds: function () {
-                return this.advertisements.filter((advertisement) => {
+                /*return this.advertisements.filter((advertisement) => {
                     return advertisement.title.match(this.search);
+                });*/
+                return this.advertisements.filter((advertisement) => {
+                    return advertisement.isProduct.match('true');
                 });
             }
         },
@@ -80,7 +76,7 @@
 
 <style scoped>
     #show-ads {
-       /* max-width: 800px;*/
+        /* max-width: 800px;*/
         margin: 30px auto;
     }
 

@@ -7,7 +7,7 @@
             <v-img
                     class="white--text align-end"
                     height="200px"
-                    src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                    :src=advertisement.imgUrl
             >
                 <v-card-title>{{ advertisement.title }}</v-card-title>
             </v-img>
@@ -15,7 +15,7 @@
             <v-card-subtitle class="pb-0">Number 10</v-card-subtitle>
 
             <v-card-text class="text--primary">
-                <div>{{ advertisement.body }}</div>
+                <div>{{ advertisement.description }}</div>
             </v-card-text>
 
             <v-card-actions>
@@ -42,13 +42,19 @@
         data () {
             return {
                 id: this.$route.params.id,
-                advertisement: {}
+                advertisement: {},
+                description: '',
+                imgUrl: '',
+
+
             }
         },
         created() {
             this.$http.get('http://jsonplaceholder.typicode.com/posts/' + this.id).then(function(data){
                 // console.log(data);
                 this.advertisement = data.body;
+                this.description = data.description;
+                this.imgUrl = data.imgUrl;
             });
         }
     }
