@@ -3,7 +3,7 @@
        <!-- <header class="jumbotron">
             <h3>{{content}}</h3>
         </header>-->
-        <HotProducts style="width: 100%"/>
+        <!--<HotProducts style="width: 100%"/>-->
         <h3>Изберете град:</h3>
         <MapMK/>
     </div>
@@ -12,12 +12,12 @@
 <script>
     import MapMK from "../components/MapMK";
     import UserService from '../services/user.service';
-    import HotProducts from "../components/HotProducts";
+    //import HotProducts from "../components/HotProducts";
 
     export default {
         name: "Home",
         components:  {
-            HotProducts,
+            //HotProducts,
             MapMK
         },
         data() {

@@ -13,6 +13,8 @@
                 <router-link
                         :to="link.path"
                         :style="{ color: linkColor || '#DDD' }"
+                        v-on:removeItemFromCart="removeItemFromCart" :cart="cart"
+                        v-on:addItemToCart="addItemToCart"
                 >
                     {{ link.text }}
                     <i :class="link.icon" />
@@ -58,7 +60,13 @@
                 const nav = this.$refs.nav.classList;
                 nav.contains('active') ? nav.remove('active') : nav.add('active')
             },
-
+            addItemToCart(product) {
+                this.cart.push(product);
+                console.log('primeno u nav.vue')
+            },
+            removeItemFromCart(product) {
+                this.cart.splice(this.cart.indexOf(product), 1);
+            }
         },
         computed: {
 

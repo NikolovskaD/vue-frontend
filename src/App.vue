@@ -1,12 +1,13 @@
 <template>
   <v-app>
-    <v-main>
+    <v-main  >
       <ResponsiveNavigation
               :nav-links="navLinks"
               :image-path="require('./assets/logo.png')"
               background="#fff"
               link-color="#777"
               hoverBackground="#ddd"
+
       />
 
       <!-- tutorijal-->
@@ -57,6 +58,8 @@
       </nav>
  <!--     do tuka-->
       <router-view/>
+     <!-- <AllProducts v-on:removeItemFromCart="removeItemFromCart" :cart="cart"
+                   v-on:addItemToCart="addItemToCart" />-->
     </v-main>
     <Footer/>
   </v-app>
@@ -65,6 +68,7 @@
 <script>
   import ResponsiveNavigation from '@/components/ResponsiveNavigation'
   import Footer from "@/components/Footer";
+ // import AllProducts from "./components/AllProducts";
   //import Home from "@/views/Home";
 
 
@@ -72,6 +76,7 @@ export default {
   name: 'App',
 
   components: {
+    //AllProducts,
      // Home,
       Footer,
       ResponsiveNavigation
@@ -132,6 +137,7 @@ export default {
     },
     addItemToCart(product) {
       this.cart.push(product);
+      console.log('primeno u app.vue')
     },
     removeItemFromCart(product) {
       this.cart.splice(this.cart.indexOf(product), 1);

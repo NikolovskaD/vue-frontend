@@ -78,8 +78,10 @@
         },
         methods: {
             addItemToCart(advertisement) {
-                this.$emit("addItemToCart", advertisement);
+                //this.$emit("addItemToCart", advertisement);
+                this.$root.$emit('addItemToCart',advertisement);
                 console.log('added to cart');
+                console.log(advertisement.body);
                 //console.log(this.cart.length);
                 //this.cart.push(advertisement);
             },

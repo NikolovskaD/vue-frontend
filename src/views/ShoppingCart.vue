@@ -4,7 +4,7 @@
 
         <v-list two-line>
             <template>
-                <div v-for="(product, index) in cart" :key="index">
+                <div v-for="(product, index) in ads" :key="index">
                 <v-list-item  avatar> <!--:key="product.id"-->
                     <v-list-item-avatar>
                         <img :src="product.imgUrl">
@@ -54,8 +54,9 @@
     //import {bus} from '../main';
     export default {
         name: "ShoppingCart",
-        props: ["cart"],
+        props: ['cart'],
         data: () => ({
+            ads: [],
             products: [{
                 product_id: 'kitchen-1',
                 photo: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
@@ -83,23 +84,32 @@
             removeItemFromCart(product) {
                 this.$emit("removeItemFromCart", product);
             }
-        }
-       /* checkout () {
-            // this.$checkout.close()
-            // is also available.
-            this.$checkout.open({
-                image: 'https://i.imgur.com/1PHlmFF.jpg',
-                locale: 'en',
-                currency: 'BZD',
-                name: 'Blips and Chitz!',
-                description: 'An entire afternoon at Blips and Chitz!',
-                amount: 9999999,
-                panelLabel: 'Play Roy for {{amount}}',
-               /!* token: (token) => {
-                    // handle the token
-                }*!/
+        },
+        mounted() {
+            console.log('mounted');
+
+            this.$root.$on('addItemToCart', data => {
+                console.log(data.body);
+                this.ads.push(data.body);
+
             })
-        }*/
+        }
+        /* checkout () {
+             // this.$checkout.close()
+             // is also available.
+             this.$checkout.open({
+                 image: 'https://i.imgur.com/1PHlmFF.jpg',
+                 locale: 'en',
+                 currency: 'BZD',
+                 name: 'Blips and Chitz!',
+                 description: 'An entire afternoon at Blips and Chitz!',
+                 amount: 9999999,
+                 panelLabel: 'Play Roy for {{amount}}',
+                /!* token: (token) => {
+                     // handle the token
+                 }*!/
+             })
+         }*/
     }
 </script>
 
