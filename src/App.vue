@@ -77,6 +77,7 @@ export default {
       ResponsiveNavigation
   },
   data: () => ({
+    cart: [],
     navLinks: [
       {
         text: 'Контакт',
@@ -86,11 +87,6 @@ export default {
       {
         text: 'За нас',
         path: '/about',
-        icon: 'ion-ios-business'
-      },
-      {
-        text: 'Портфолио',
-        path: '/portfolio',
         icon: 'ion-ios-briefcase'
       },
       {
@@ -133,6 +129,12 @@ export default {
     logOut() {
       this.$store.dispatch('auth/logout');
       this.$router.push('/login');
+    },
+    addItemToCart(product) {
+      this.cart.push(product);
+    },
+    removeItemFromCart(product) {
+      this.cart.splice(this.cart.indexOf(product), 1);
     }
   }
 };

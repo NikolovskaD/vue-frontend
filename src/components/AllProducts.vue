@@ -1,5 +1,5 @@
 <template>
-    <div id="show-ads">
+    <div id="show-ads" class="products">
         <h1>Сите продукти</h1>
         <input type="text" v-model="search" placeholder="пребарувај"/>
         <v-row>
@@ -26,9 +26,9 @@
                         <v-card-subtitle class="pb-0">{{idx}}</v-card-subtitle>
 
                         <v-card-text class="text--primary" > <!--style="position: relative;"-->
-                            <!--<v-btn absolute color="orange" class="white&#45;&#45;text" fab medium right top>
+                            <v-btn v-on:click="addItemToCart(advertisement)" absolute color="orange" class="white--text" fab medium right top >
                                 <v-icon>shopping_cart</v-icon>
-                            </v-btn>-->
+                            </v-btn>
                             <div>{{ advertisement.description }}</div>
                         </v-card-text>
 
@@ -42,7 +42,7 @@
                                 <p>{{advertisement.categories.name}} - {{ advertisement.money.amount }} {{advertisement.money.currency}}</p>
                             </router-link>
                         </v-card-actions>
-                        <div class="cart">
+                       <!-- <div class="cart">
                             <button
                                     @click="updateCart(advertisement, 'subtract')"
                                     class="cart__button"
@@ -56,7 +56,7 @@
                             >
                                 +
                             </button>
-                        </div>
+                        </div>-->
                     </div>
                 </v-card>
             </v-col>
@@ -66,17 +66,36 @@
 </template>
 
 <script>
+    //import {bus} from '../main'
     export default {
         name: "AllProducts",
         data() {
             return {
                 advertisements: [],
-                search: ''
+                search: '',
+                //cart: []
             }
         },
         methods: {
+            addItemToCart(advertisement) {
+                this.$emit("addItemToCart", advertisement);
+                console.log('added to cart');
+                //console.log(this.cart.length);
+                //this.cart.push(advertisement);
+            },
+           /* addItemToCart(product) {
+                this.cart.push(product);
+            },*/
+           /* removeItemFromCart(product) {
+                this.cart.splice(this.cart.indexOf(product), 1);
+            }*/
+
+           /* passToCart: function(){
+                bus.$emit('itemAdded',)
+            }*/
+
             /*za shopping cart*/
-            updateCart(product, updateType) {
+            /*updateCart(product, updateType) {
                 for (let i = 0; i < this.advertisements.length; i++) {
                     if (this.advertisements[i].id === product.id) {
                         if (updateType === 'subtract') {
@@ -90,7 +109,7 @@
                         break;
                     }
                 }
-            }
+            }*/
         },
         computed: {
             filteredAds: function () {
@@ -99,7 +118,7 @@
                 });
             },
             /*za shopping cart*/
-            cart() {
+            /*cart() {
                 return this.products.filter(product => product.quantity > 0);
             },
             totalQuantity() {
@@ -107,7 +126,7 @@
                     (total, product) => total + product.quantity,
                     0
                 );
-            }
+            }*/
 
         },
         created() {

@@ -8,6 +8,9 @@ import SingleAdvertisement from "../components/SingleAdvertisement";
 import Profile from "../views/Profile";
 import Register2 from "../views/Register2";
 import AllProducts from "../components/AllProducts";
+import CartT from "../components/CartT";
+import NavBarT from "../components/NavBarT";
+import ProductT from "../components/ProductT";
 
 Vue.use(VueRouter);
 
@@ -108,6 +111,21 @@ const routes = [
     path: '/shopping-cart',
     name: 'ShoppingCart',
     component: () => import('../views/ShoppingCart.vue')
+  },
+  {
+    path: '/cart-t',
+    name: 'CartT',
+    component: CartT
+  },
+  {
+    path: '/navbar-t',
+    name: 'NavBarT',
+    component: NavBarT
+  },
+  {
+    path: '/product-t',
+    name: 'ProductT',
+    component: ProductT
   }
 
 

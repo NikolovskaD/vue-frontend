@@ -19,6 +19,10 @@ import {
   faSignOutAlt
 } from '@fortawesome/free-solid-svg-icons';
 
+
+//import VueStripeCheckout from 'vue-stripe-checkout';
+
+
 library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt);
 
 Vue.use(VeeValidate);
@@ -30,11 +34,25 @@ Vue.config.productionTip = false;
 Vue.use(VueResource);
 Vue.use(VueRouter);
 
+// base/global options
+// these options can be overridden
+// by the options in the .open(options)
+// function.
+/*const options = {
+  key: 'pk_test_4GcfSMiy6ImzfNaVMXZa0WcM007PX02TS8',
+  image: 'https://cdn.meme.am/images/100x100/15882140.jpg',
+  locale: 'auto',
+  currency: 'PHP',
+  billingAddress: true,
+  //panelLabel: 'Subscribe {{amount}}'
+};
+Vue.use(VueStripeCheckout, options);*/
 
+export const bus = new Vue();
 
 new Vue({
   router,
   store,
   vuetify,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');

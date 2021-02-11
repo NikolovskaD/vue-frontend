@@ -24,7 +24,8 @@
                     @mouseenter="$event.currentTarget.style.background = hoverBackground || '#999'"
                     @mouseleave="$event.currentTarget.style.background = background || '#333'">
                 <v-badge left color="green">
-                    <span slot="badge">0</span>
+                    <!--<span slot="badge">{{this.cart.length}}</span>-->
+                    <span slot="badge">3</span>
                     <router-link
                             to="/shopping-cart"
                             :style="{ color: linkColor || '#DDD' }"
@@ -51,7 +52,7 @@
 
 <script>
     export default {
-        props: ['navLinks', 'background', 'linkColor', 'hoverBackground', 'imagePath'],
+        props: ['navLinks', 'background', 'linkColor', 'hoverBackground', 'imagePath', 'cart'],
         methods: {
             toggleNav () {
                 const nav = this.$refs.nav.classList;
