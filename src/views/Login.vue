@@ -69,7 +69,7 @@
                     <v-col cols="12" md="4" class="teal accent-3" >
                       <v-card-text class="white--text mt-12">
                         <h1 class="text-center display-1">Здраво пријателче!</h1>
-                        <h5 class="text-center">Стани дел на оваа приказна брзо и лесно</h5>
+                        <h5 class="text-center">Стани дел од оваа приказна брзо и лесно</h5>
                       </v-card-text>
                       <div class="text-center">
                         <v-btn rounded outlined="" dark @click="step++">Регистрирај се</v-btn>
