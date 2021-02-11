@@ -81,7 +81,7 @@
 
 <style scoped>
     #show-ads {
-       /* max-width: 800px;*/
+        max-width: 80%;
         margin: 30px auto;
     }
 
@@ -91,6 +91,7 @@
         box-sizing: border-box;
         /*background: #eee;*/
         border: 1px dotted #ccc;
+        text-align: left;
     }
 
     #show-ads a {

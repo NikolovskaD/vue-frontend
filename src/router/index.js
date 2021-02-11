@@ -104,6 +104,11 @@ const routes = [
     name: 'AllProducts',
     component: AllProducts
   },
+  {
+    path: '/shopping-cart',
+    name: 'ShoppingCart',
+    component: () => import('../views/ShoppingCart.vue')
+  }
 
 
 ];

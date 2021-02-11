@@ -107,11 +107,6 @@ export default {
         text: 'Продукти',
         path: '/products',
         icon: 'ion-ios-bonfire'
-      },
-      {
-        text: 'Најави се',
-        path: '/login',
-        icon: 'ion-ios-log-in'
       }
     ]
   }),
